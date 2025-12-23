@@ -16,7 +16,7 @@
           @{{ comment.author.username }}
         </a>
       </h5>
-      <small class="text-muted">{{ comment.created_at }}</small>
+      <small class="text-muted">{{ comment.created|date:"d E Y, H:i" }}</small>
       <br>
       {{ comment.text|linebreaksbr }}
     </div>

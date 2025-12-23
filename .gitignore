@@ -148,5 +148,13 @@ dmypy.json
 # папки со статикой и медиа
 media/
 
-sent_emails/
+# Testing
+build_tests/
+yap_testing
+html/img/img/
 
+static/
+static-dev/
+html/
+
+sent_emails/
