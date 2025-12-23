@@ -6,14 +6,7 @@ from django.contrib.auth import get_user_model
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = (
-            'title',
-            'text',
-            'category',
-            'location',
-            'pub_date',
-            'image',
-        )
+        exclude = ('author', 'created_at')
         widgets = {
             'pub_date': forms.DateTimeInput(
                 format='%Y-%m-%dT%H:%M',

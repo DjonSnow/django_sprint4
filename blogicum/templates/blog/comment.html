@@ -1,32 +1,37 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 {% block title %}
-  {% if '/edit_comment/' in request.path %}
+  {% with request.resolver_match.view_name as view_name %}
+  {% if view_name == 'blog:edit_comment' %}
     Редактирование комментария
   {% else %}
     Удаление комментария
   {% endif %}
+  {% endwith %}
 {% endblock %}
 {% block content %}
   {% if user.is_authenticated %}
     <div class="col d-flex justify-content-center">
       <div class="card" style="width: 40rem;">
         <div class="card-header">
-          {% if '/edit_comment/' in request.path %}
+          {% with request.resolver_match.view_name as view_name %}
+          {% if view_name == 'blog:edit_comment' %}
             Редактирование комментария
           {% else %}
             Удаление комментария
           {% endif %}
+          {% endwith %}
         </div>
         <div class="card-body">
           <form method="post"
-            {% if '/edit_comment/' in request.path %}
+            {% with request.resolver_match.view_name as view_name %}
+            {% if view_name == 'blog:edit_comment' %}
               action="{% url 'blog:edit_comment' comment.post_id comment.id %}"
-            {% elif '/delete_comment/' in request.path %}
+            {% else %}
               action="{% url 'blog:delete_comment' comment.post_id comment.id %}"
-            {% endif %}>
+            {% endif %}{% endwith %}>
             {% csrf_token %}
-            {% if not '/delete_comment/' in request.path %}
+            {% if not is_delete %}
               {% bootstrap_form form %}
             {% else %}
               <p>{{ comment.text }}</p>

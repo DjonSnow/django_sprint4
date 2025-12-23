@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Category, Location, Post
+from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin
 
 
 @admin.register(Category)
@@ -23,3 +25,10 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     list_filter = ('category', 'location')
     search_fields = ('title', 'text')
+
+
+User = get_user_model()
+try:
+    admin.site.register(User, UserAdmin)
+except admin.sites.AlreadyRegistered:
+    pass
