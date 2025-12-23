@@ -59,8 +59,7 @@ def post_detail(request, post_id):
     post = get_object_or_404(base_qs, id=post_id, category__isnull=False)
 
     if post.author != request.user:
-        # Second get_object_or_404 ensures access control is defined by the
-        # published posts queryset.
+
         post = get_object_or_404(
             published_posts(base_qs),
             id=post_id,

@@ -9,19 +9,12 @@ from .models import Post
 
 
 def with_comment_count(posts: QuerySet[Post]) -> QuerySet[Post]:
-    """
-    Add comment counts to each post.
-
-    Important: after annotate() we must re-apply ordering, otherwise pagination
-    can be unstable.
-    """
     return posts.annotate(comment_count=Count("comments")).order_by(
         *Post._meta.ordering
     )
 
 
 def published_posts(posts: QuerySet[Post] | None = None) -> QuerySet[Post]:
-    """Return only posts visible to non-auth visitors."""
     if posts is None:
         posts = Post.objects.all()
     return posts.filter(
