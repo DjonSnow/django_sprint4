@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Location, Post
+from .models import Category, Location, Post, Comment
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
@@ -25,6 +25,12 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     list_filter = ('category', 'location')
     search_fields = ('title', 'text')
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('text', 'author')
+    list_editable = ('author',)
+    search_fields = ('author',)
 
 
 User = get_user_model()
